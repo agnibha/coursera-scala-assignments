@@ -26,11 +26,8 @@ object Main {
     def balance(chars: List[Char]): Boolean = {
 
     def loop(chars: List[Char], top: Int): Boolean = 
-      if (top < 0) false
-      else if (chars.isEmpty) {
-        if (top > 0) false
-        else true
-      }
+      if (top < 0 || (chars.isEmpty && top > 0)) false
+      else if (chars.isEmpty)	true
       else if (chars.head == '(')
         loop(chars.tail, top + 1)
       else if (chars.head == ')')
@@ -46,5 +43,11 @@ object Main {
   /**
    * Exercise 3
    */
-  def countChange(money: Int, coins: List[Int]): Int = ???
+  def countChange(money: Int, coins: List[Int]): Int = {
+    if(money < 0 || coins.isEmpty) 0
+    else if (money == 0)	1
+    else
+      countChange(money - coins.head, coins) + countChange(money, coins.tail)
+  }
 }
+
